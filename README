@@ -1,0 +1,24 @@
+ABSTRACT
+
+The PerformanceTrackerFramework is the client library component of a performance testing system.
+
+BUILD
+
+$ mkdir build
+$ cd build
+$ cmake ../cmake
+$ make
+
+ABOUT
+
+The PerformanceTrackerFramework is a small, experimental library which fulfills the client side component of a two part system. This document or wiki will cover the entire system.
+
+This project takes strong cues from CppUnit and Smolder, as well as other such systems. The problem that this library is intended to address is one of tracking the performance of pieces of software.
+
+Software performance is a significant issue in software development. However, although there is a huge amount of work done in the theory of performance, pragmatic performance tracking is significantly less thoroughly investigated. By comparison, extensive theoretical work has been done in proving that sorting algorithms will actually sort as desired. But in practical programming, we instead use unit tests and other testing styles. Why is it then, that performance is still so firmly rooted in the theoretical instead of the practical, while validity manages to span both? A full answer to this would be better provided by a proper software engineer, however I will speculate the following: performance is extremely sensitive to context and is only meaningful relative to other measurements.
+
+To elaborate on the first point, correctness is boolean, it is right or it is wrong. Performance has no such absolute, the same code may be fast on one system but slow on another, or may be slow on a system which has high load. Indeed, code which runs slowly may simply need to sit and wait for years, until a faster processor and better compiler come along, in which case the code becomes fast! Not algorithmically, but practically.
+
+Now let me expand on the second point. Performance tests are only significant relative to variants on the same code and context. By context I mean the hardware and system load. And of course, the most practical notion of “variant on the same code” would be consecutive revisions of a library of interest, which is perfect. In this way, a programmer could demonstrate that a change to the code had improved the performance of code.
+
+So we need a system: a client library, and a server. This client library exists in the language of interest (C++ in our case), and a networked server of some sort. For the sake of simplicity, a web server, using some framework such as rails, will be more than adequate. The design of the library shall largely be lifted from CppUnit, an already established standard and well designed library. As for the web server, this is yet undesigned and will be a separate repository entirely.
