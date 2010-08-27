@@ -1,0 +1,12 @@
+/**
+
+\mainpage
+
+\image html foo.jpg
+
+\section Main
+
+This is the main page
+
+*/
+

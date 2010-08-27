@@ -18,11 +18,12 @@ INCLUDE_DIRECTORIES(
 
 FILE(GLOB PerformanceTracker_SRC ${CMAKE_SOURCE_DIR}/../src/*.cpp)
 
-ADD_LIBRARY(
-    PerformanceTracker STATIC ${PerformanceTracker_SRC}
+ADD_LIBRARY(PerformanceTracker 
+    STATIC ${PerformanceTracker_SRC}
 )
 
 OPTION(BUILD_TESTS "Build and execute tests" ON)
+OPTION(BUILD_DOCS  "Build documentation" ON)
 
 IF( BUILD_TESTS )
     ENABLE_TESTING()
@@ -35,4 +36,16 @@ IF( BUILD_TESTS )
         ADD_TEST("${BASENAME}" ${BIN_DIR}/${BASENAME})
     ENDFOREACH(TESTNAME ${Tests_SRC})
 ENDIF( BUILD_TESTS )
+
+IF( BUILD_DOCS )
+    SET(DOCUMENTATION_PATH ${CMAKE_SOURCE_DIR}/../doc/)
+    MAKE_DIRECTORY(${DOCUMENTATION_PATH})
+    ADD_CUSTOM_COMMAND(
+        OUTPUT Documentation
+        COMMAND doxygen ${DOCUMENTATION_PATH}/Doxyfile
+        DEPENDS ${DOCUMENTATION_PATH}/Doxyfile
+    )
+    ADD_CUSTOM_TARGET(documentation ALL DEPENDS Documentation)
+
+ENDIF( BUILD_DOCS )
 
